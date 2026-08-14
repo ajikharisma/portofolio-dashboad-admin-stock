@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 function ProductModal({ product, onClose, onSave, loading }) {
-    // TODO 1: State form awal
     const [formData, setFormData] = useState({
         title: '',
         price: '',
@@ -9,7 +8,6 @@ function ProductModal({ product, onClose, onSave, loading }) {
         category: '',
     });
 
-    // TODO 2: useEffect saat props "product" berubah
     useEffect(() => {
         if (product) {
             setFormData({
@@ -28,52 +26,44 @@ function ProductModal({ product, onClose, onSave, loading }) {
         }
     }, [product]);
 
-    // TODO 3: Handle change generik
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
-            // Ubah ke angka jika input bertipe number
             [name]: name === 'price' || name === 'stock' ? Number(value) : value,
         }));
     };
 
-    // TODO 4: Handle submit
     const handleSubmit = (e) => {
         e.preventDefault();
         onSave(formData);
     };
 
     return (
-        // TODO 5: Overlay gelap fixed
         <div
-            className='fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-opacity'
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4 overflow-y-auto"
             onClick={onClose}
         >
-            {/* Modal card - Stop event propagation agar klik didalam tidak menutup modal */}
             <div
-                className='bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-150'
+                className="bg-white rounded-2xl shadow-2xl border border-slate-100 w-full max-w-md my-auto overflow-hidden animate-in fade-in zoom-in-95 duration-150"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Modal header */}
-                <div className='p-6 border-b border-slate-100 flex items-center justify-between'>
-                    <h3 className='font-bold text-lg text-slate-800'>
+                <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
+                    <h3 className="font-bold text-base sm:text-lg text-slate-800">
                         {product ? 'Edit Produk' : 'Tambah Produk Baru'}
                     </h3>
                     <button
                         onClick={onClose}
                         type="button"
-                        className='text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100 transition-colors'
+                        className="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
                     >
-                        X
+                        ✕
                     </button>
                 </div>
 
-                {/* Modal Form Body */}
-                <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                    {/* Input Title */}
+                <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-3.5 sm:space-y-4">
                     <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+                        <label className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
                             Nama Produk
                         </label>
                         <input
@@ -87,10 +77,9 @@ function ProductModal({ product, onClose, onSave, loading }) {
                         />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                        {/* Input Price */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
-                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+                            <label className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
                                 Harga ($)
                             </label>
                             <input
@@ -106,9 +95,8 @@ function ProductModal({ product, onClose, onSave, loading }) {
                             />
                         </div>
 
-                        {/* Input Stock */}
                         <div>
-                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+                            <label className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
                                 Stok
                             </label>
                             <input
@@ -124,9 +112,8 @@ function ProductModal({ product, onClose, onSave, loading }) {
                         </div>
                     </div>
 
-                    {/* Input Category */}
                     <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+                        <label className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
                             Kategori
                         </label>
                         <input
@@ -135,13 +122,12 @@ function ProductModal({ product, onClose, onSave, loading }) {
                             value={formData.category}
                             onChange={handleChange}
                             required
-                            placeholder="Contoh: electronics"
+                            placeholder="Contoh: beauty, electronics"
                             className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                     </div>
 
-                    {/* Modal Footer / Action Buttons */}
-                    <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+                    <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-2.5 sm:gap-3">
                         <button
                             type="button"
                             onClick={onClose}
@@ -160,7 +146,7 @@ function ProductModal({ product, onClose, onSave, loading }) {
                 </form>
             </div>
         </div>
-    )
+    );
 }
 
 export default ProductModal;
