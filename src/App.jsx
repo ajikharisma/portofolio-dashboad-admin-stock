@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
+import ProductTable from './components/ProductTable';
 
 // Komponen SVG Icons untuk Layar Utama
 const IconDashboardLarge = () => (
@@ -34,7 +35,7 @@ const IconSettingsLarge = () => (
 );
 
 function App() {
-  const [activePage, setActivePage] = useState('dashboard');
+  const [activePage, setActivePage] = useState('products'); // Default langsung ke 'products'
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const renderContent = () => {
@@ -54,19 +55,8 @@ function App() {
           </div>
         );
       case 'products':
-        return (
-          <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2.5 bg-blue-50 rounded-xl">
-                <IconProductsLarge />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold text-slate-800">Daftar Produk</h2>
-                <p className="text-slate-500 text-sm">Kelola katalog produk dan stok barang.</p>
-              </div>
-            </div>
-          </div>
-        );
+        // Menampilkan Komponen Tabel Produk Lengkap (Stats + Table + Pagination + Modal)
+        return <ProductTable />;
       case 'categories':
         return (
           <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
